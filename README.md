@@ -16,6 +16,9 @@ Conway's Game of Life has the following rules:
   - If a cell is dead and has exactly 3 live neighbors, it becomes alive (reproduction).
 - With these simple rules, the game simulation can create fascinating patterns.
 
+## Here is a video of the game with a pre-made seed
+https://drive.google.com/file/d/1iaSUtV8i7cFnIjQpXJ8jJOmKepFL2Q5S/view?usp=sharing
+
 ## What This Game Represents
 This game uses rules that mirror the survival and reproduction of populations. This means that if we have a good set of rules, we can simulate the development of a species or a population. Additionally, it looks quite interesting ฅ(^•ﻌ•^ฅ).
 
