@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-b2788373a84c96574a14.json",
+					"jsonFile" : "directory-.-Debug-df5be2d377e074e698f9.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "TheGameOfLife::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-TheGameOfLife-Debug-47bca9fe042a67220205.json",
+					"jsonFile" : "target-TheGameOfLife-Debug-42fd1fca4270e927c87a.json",
 					"name" : "TheGameOfLife",
 					"projectIndex" : 0
 				},

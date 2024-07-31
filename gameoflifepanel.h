@@ -7,9 +7,9 @@
 #include <map>
 
 
-#define GAME_SPEED_DEFAULT                      100 //100ms each update
 #define MIN_GAME_SPEED                  1//1 FPS
 #define MAX_GAME_SPEED                  450 //450 FPS
+#define GAME_SPEED_DEFAULT              MAX_GAME_SPEED
 
 class GameOfLifeData{
 public:
@@ -34,6 +34,7 @@ private:
 
 
 using GameOfLifeBoard = QVector<QVector<GameOfLifeData>>;
+using Coord = std::tuple<int, int>;
 
 class GameOfLifePanel : public QWidget
 {
@@ -53,6 +54,7 @@ public:
     //apply the game of life rules on a board then return the new board with rules applied
     GameOfLifeBoard ApplyRules(GameOfLifeBoard board);
 
+
     int GetNumberOfRow(void);
     int GetNumberOfColumn(void);
 
@@ -65,13 +67,16 @@ public slots:
     void StartGame(void);
     void PauseGame(void);
     void ResetGame(void);
+    void NextStep(void);
     void GameSpeedChange(int speed);
+    void UpdateSeed(QString str);
 protected:
     void paintEvent(QPaintEvent* event) override;
 
 private:
     GameOfLifeBoard m_gameBoard;
     QTimer m_timer;
+    QVector<Coord> m_setupList;
     int m_generationCount;
     int m_populationCount;
 

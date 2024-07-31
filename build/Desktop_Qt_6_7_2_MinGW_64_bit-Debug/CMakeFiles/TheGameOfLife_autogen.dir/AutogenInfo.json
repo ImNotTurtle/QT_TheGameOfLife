@@ -267,6 +267,12 @@
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
+		],
+		[
+			"D:/Projects/Qt/TestProjectCreator/TheGameOfLife/shareddata.h",
+			"MU",
+			"EWIEGA46WW/moc_shareddata.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -352,6 +358,11 @@
 		],
 		[
 			"D:/Projects/Qt/TestProjectCreator/TheGameOfLife/mainwindow.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/Projects/Qt/TestProjectCreator/TheGameOfLife/shareddata.cpp",
 			"MU",
 			null
 		]

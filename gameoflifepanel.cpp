@@ -1,6 +1,7 @@
 #include "gameoflifepanel.h"
 #include <QPainter>
 #include <QMessageBox>
+#include "shareddata.h"
 
 
 static int Map(int inp, int inpMin, int inpMax, int outMin, int outMax){
@@ -97,10 +98,56 @@ void GameOfLifePanel::ResetGame(void){
     m_timer.stop();
     //re init the board
     this->CreateBoard(this->GetNumberOfRow(), this->GetNumberOfColumn());
-    this->update();
+}
+void GameOfLifePanel::NextStep(void){
+    this->NextGeneration();
+
 }
 void GameOfLifePanel::GameSpeedChange(int speed){
     this->SetGenerationSpeed(speed);
+}
+void GameOfLifePanel::UpdateSeed(QString str){
+    //reset the previous setup list before apply new list
+    for(auto& item : m_setupList){
+        int x = get<0>(item);
+        int y = get<1>(item);
+        m_gameBoard[x][y].Die();
+    }
+    m_setupList.clear();
+    m_setupList.resize(0);
+    //split the string by \n
+    QVector<QString> list = SharedData::Split(str, "\n");
+    for(auto &coord : list){
+        //check if the coord is valid
+        //1. split by ,
+        auto coordList = SharedData::Split(coord, ",");
+        //this should contains 2 value
+        if(coordList.size() == 2){
+            //2.try to convert to number
+            try{
+                std::string temp = coordList[0].toStdString();
+                int x = std::stoi(temp);
+                temp = coordList[1].toStdString();
+                int y = std::stoi(temp);
+                //3. apply if convert success
+                if(this->IsValidXY(x, y)){
+                    m_setupList.push_back({x, y});
+                }
+            }
+            catch(std::invalid_argument){
+
+            }
+            catch(std::out_of_range){
+
+            }
+            catch(std::exception &e){
+                qDebug() << "In GameOfLifePanel::UpdateSeed(): " << e.what();
+            }
+        }
+    }
+    //apply the setup list
+    this->ApplySeed();
+    this->update();
 }
 
 void GameOfLifePanel::NextGeneration(void){
@@ -110,6 +157,9 @@ void GameOfLifePanel::NextGeneration(void){
 
     //apply the next generation to the current board
     m_gameBoard = nextGeneration;
+    this->update();
+
+    emit UpdateFinish();
 }
 int GameOfLifePanel::GetGenerationCount(void){
     return m_generationCount;
@@ -190,7 +240,6 @@ int GameOfLifePanel::GetNumberOfColumn(void){
 void GameOfLifePanel::SetGenerationSpeed(int speed){
     int newSpeed = Map(speed, MIN_GAME_SPEED, MAX_GAME_SPEED, 1000, 10000 / MAX_GAME_SPEED);
     m_timer.setInterval(newSpeed);
-    qDebug() << newSpeed;
 }
 
 void GameOfLifePanel::paintEvent(QPaintEvent* event){
@@ -254,18 +303,15 @@ bool GameOfLifePanel::IsValidXY(const int &x, const int& y){
     return 0 <= x && x < this->GetNumberOfRow() && 0 <= y && y < this->GetNumberOfColumn();
 }
 void GameOfLifePanel::ApplySeed(void){
-    int centerX = this->GetNumberOfRow() / 2;
-    int centerY = this->GetNumberOfColumn() / 2;
-    m_gameBoard[centerX][centerY].Live();
-    m_gameBoard[centerX - 1][centerY + 1].Live();
-    m_gameBoard[centerX][centerY + 1].Live();
-    m_gameBoard[centerX + 1][centerY + 1].Live();
-    m_gameBoard[centerX + 1][centerY + 2].Live();
+    for(auto &item : m_setupList){
+        int x = get<0>(item);
+        int y = get<1>(item);
+        m_gameBoard[x][y].Live();
+    }
+    this->update();
 }
 
 
 void GameOfLifePanel::timerEvent(){
     this->NextGeneration();
-    this->update();
-    emit UpdateFinish();
 }

@@ -10,6 +10,8 @@ TheGameOfLife_autogen/timestamp: \
 	D:/Projects/Qt/TestProjectCreator/TheGameOfLife/main.cpp \
 	D:/Projects/Qt/TestProjectCreator/TheGameOfLife/mainwindow.cpp \
 	D:/Projects/Qt/TestProjectCreator/TheGameOfLife/mainwindow.h \
+	D:/Projects/Qt/TestProjectCreator/TheGameOfLife/shareddata.cpp \
+	D:/Projects/Qt/TestProjectCreator/TheGameOfLife/shareddata.h \
 	E:/IDEs/6.7.2/mingw_64/include/QtCore/QTimer \
 	E:/IDEs/6.7.2/mingw_64/include/QtCore/q20functional.h \
 	E:/IDEs/6.7.2/mingw_64/include/QtCore/q20memory.h \

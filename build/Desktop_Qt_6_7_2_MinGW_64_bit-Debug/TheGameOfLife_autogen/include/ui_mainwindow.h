@@ -19,6 +19,8 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -28,17 +30,19 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
+    QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout;
     QWidget *topWidget;
     QGridLayout *gridLayout;
     QLabel *generationLabel;
     QLabel *populationLabel;
-    QSpacerItem *horizontalSpacer;
     QLabel *boardSizeLabel;
     QSpacerItem *verticalSpacer;
+    QSpacerItem *horizontalSpacer;
     QWidget *boardWidget;
     QWidget *bottomWidget;
     QHBoxLayout *horizontalLayout;
+    QPushButton *nextButton;
     QPushButton *startButton;
     QPushButton *stopButton;
     QPushButton *resetButton;
@@ -48,17 +52,25 @@ public:
     QLabel *speedLabel;
     QSlider *speedSlider;
     QLabel *label;
+    QWidget *rightWidget;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_2;
+    QToolButton *helpButton;
+    QTextEdit *seedEditor;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(800, 600);
+        MainWindow->resize(1013, 662);
         MainWindow->setMinimumSize(QSize(0, 60));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        verticalLayout = new QVBoxLayout(centralwidget);
+        horizontalLayout_3 = new QHBoxLayout(centralwidget);
+        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
         topWidget = new QWidget(centralwidget);
         topWidget->setObjectName("topWidget");
@@ -80,10 +92,6 @@ public:
 
         gridLayout->addWidget(populationLabel, 1, 1, 1, 1);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 0, 2, 1, 1);
-
         boardSizeLabel = new QLabel(topWidget);
         boardSizeLabel->setObjectName("boardSizeLabel");
         boardSizeLabel->setMinimumSize(QSize(140, 40));
@@ -94,6 +102,10 @@ public:
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         gridLayout->addItem(verticalSpacer, 1, 0, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 0, 2, 1, 1);
 
 
         verticalLayout->addWidget(topWidget);
@@ -110,7 +122,13 @@ public:
         horizontalLayout = new QHBoxLayout(bottomWidget);
         horizontalLayout->setSpacing(7);
         horizontalLayout->setObjectName("horizontalLayout");
-        horizontalLayout->setContentsMargins(100, -1, 50, -1);
+        horizontalLayout->setContentsMargins(50, -1, 50, -1);
+        nextButton = new QPushButton(bottomWidget);
+        nextButton->setObjectName("nextButton");
+        nextButton->setMinimumSize(QSize(50, 50));
+
+        horizontalLayout->addWidget(nextButton);
+
         startButton = new QPushButton(bottomWidget);
         startButton->setObjectName("startButton");
         startButton->setMinimumSize(QSize(50, 50));
@@ -164,11 +182,53 @@ public:
 
         horizontalLayout->addWidget(widget);
 
-        horizontalLayout->setStretch(3, 2);
+        horizontalLayout->setStretch(4, 2);
 
         verticalLayout->addWidget(bottomWidget);
 
         verticalLayout->setStretch(1, 1);
+
+        horizontalLayout_3->addLayout(verticalLayout);
+
+        rightWidget = new QWidget(centralwidget);
+        rightWidget->setObjectName("rightWidget");
+        rightWidget->setMinimumSize(QSize(50, 0));
+        verticalLayout_2 = new QVBoxLayout(rightWidget);
+        verticalLayout_2->setObjectName("verticalLayout_2");
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        horizontalLayout_2->setContentsMargins(5, 5, 5, 5);
+        label_2 = new QLabel(rightWidget);
+        label_2->setObjectName("label_2");
+        label_2->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_2);
+
+        helpButton = new QToolButton(rightWidget);
+        helpButton->setObjectName("helpButton");
+
+        horizontalLayout_2->addWidget(helpButton);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
+        seedEditor = new QTextEdit(rightWidget);
+        seedEditor->setObjectName("seedEditor");
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(seedEditor->sizePolicy().hasHeightForWidth());
+        seedEditor->setSizePolicy(sizePolicy);
+        seedEditor->setMinimumSize(QSize(50, 50));
+
+        verticalLayout_2->addWidget(seedEditor);
+
+
+        horizontalLayout_3->addWidget(rightWidget);
+
+        horizontalLayout_3->setStretch(0, 14);
+        horizontalLayout_3->setStretch(1, 2);
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -185,11 +245,18 @@ public:
         generationLabel->setText(QCoreApplication::translate("MainWindow", "Generation: 0", nullptr));
         populationLabel->setText(QCoreApplication::translate("MainWindow", "Population: 0", nullptr));
         boardSizeLabel->setText(QCoreApplication::translate("MainWindow", "Board Size: 0 x 0", nullptr));
-        startButton->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
+        nextButton->setText(QCoreApplication::translate("MainWindow", "Next", nullptr));
+        startButton->setText(QCoreApplication::translate("MainWindow", "Auto", nullptr));
         stopButton->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
         resetButton->setText(QCoreApplication::translate("MainWindow", "Reset", nullptr));
         speedLabel->setText(QCoreApplication::translate("MainWindow", "FPS: 1", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "FPS", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Seed Editor", nullptr));
+#if QT_CONFIG(tooltip)
+        helpButton->setToolTip(QCoreApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", nullptr));
+#endif // QT_CONFIG(tooltip)
+        helpButton->setText(QCoreApplication::translate("MainWindow", "?", nullptr));
+        seedEditor->setPlaceholderText(QCoreApplication::translate("MainWindow", "Place your seed here", nullptr));
     } // retranslateUi
 
 };
